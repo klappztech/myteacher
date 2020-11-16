@@ -1,0 +1,271 @@
+:root {
+  --darkgreen: #009688;
+  --darkblue: #454b5f;
+  --brightblue: #4c82c3;
+  --yelloworange: #F0AD4E;
+}
+
+#the-canvas {
+  border: 1px solid black;
+  direction: ltr;
+  width: 100%;
+}
+
+.page-img {
+  background-color: #ddd;
+  box-shadow: 0 0px 15px -5px rgba(0, 0, 0, 1);
+}
+
+#omr-float {
+  display: none;
+  overflow: scroll;
+  position: fixed;
+  bottom: 70px;
+  right: 10px;
+  width: 300px;
+  height: 75%;
+  background-color: var(--yelloworange);
+  border: none;
+  padding: 5px 10px;
+  font-size: 12px;
+  /* visibility: hidden; */
+  z-index: 1000;
+  box-shadow: 0 0px 10px -5px rgba(0, 0, 0, 1);
+  border-radius: 5px;
+  background-color: white;
+}
+
+.fullwidth-btn {
+  width: 100%;
+}
+
+.timer-display {
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 10px;
+  color: #fff;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+  width: 100%;
+  height: 100%;
+}
+
+#demo {
+  text-align: right !important;
+}
+
+#header-bar {
+  transition: top 0.3s;
+  background-color: var(--darkgreen);
+}
+
+#footer-bar {
+  transition: 0.3s;
+  background-color: var(--darkgreen);
+}
+
+.current-page {
+  color: white;
+  text-shadow: 1px 1px 4px #000000;
+}
+
+/**** OMR radio ****/
+
+.omr-q-no {
+  color: #332f35;
+  font-size: 18px;
+}
+
+input[type=radio] {
+  position: absolute;
+  visibility: hidden;
+  display: none;
+}
+
+.bubble-label {
+  color: #332f35;
+  display: inline-block;
+  cursor: pointer;
+  padding: 0px 10px;
+  border: solid 2px #332f35;
+  border-radius: 10px;
+}
+
+.section-label {
+  color: #fff;
+  background-color: #332f35;
+  display: inline-block;
+  cursor: pointer;
+  padding: 0px 10px;
+  border: solid 2px #332f35;
+  border-radius: 5px;
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+input[type=radio]:checked+label {
+  color: #ccc;
+  background: #332f35;
+  border: solid 2px #332f35;
+}
+
+label+input[type=radio]+label {
+  border: solid 2px #332f35;
+  border-radius: 10px;
+}
+
+.radio-group {
+  display: inline-block;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.error {
+  color: red;
+  display: block;
+}
+
+.sidemenu {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1001;
+  top: 0;
+  left: 0;
+  background-color: white;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  box-shadow: 0 0px 10px -5px rgba(0, 0, 0, 1);
+}
+
+.sidemenu .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidemenu {
+    padding-top: 15px;
+  }
+  .sidemenu a {
+    font-size: 18px;
+  }
+}
+
+.fixed-center {
+  position: fixed !important;
+  top: 30%;
+  width: 100% !important;
+}
+
+.navig-btn {
+  color: white !important;
+}
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+
+#snackbar {
+  visibility: hidden;
+  /* Hidden by default. Visible on click */
+  min-width: 250px;
+  /* Set a default minimum width */
+  margin-left: -125px;
+  /* Divide value of min-width by 2 */
+  background-color: #333;
+  /* Black background color */
+  color: #fff;
+  /* White text color */
+  text-align: center;
+  /* Centered text */
+  border-radius: 2px;
+  /* Rounded borders */
+  padding: 8px;
+  /* Padding */
+  position: fixed;
+  /* Sit on top of the screen */
+  z-index: 1010;
+  /* Add a z-index if needed */
+  left: 50%;
+  /* Center the snackbar */
+  bottom: 30px;
+  /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+
+#snackbar.show {
+  visibility: visible;
+  /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+toast from {
+  bottom: 30px;
+  opacity: 1;
+}
+
+to {
+  bottom: 0;
+  opacity: 0;
+}
+
+}
+
+/* END The snackbar - position it at the bottom and in the middle of the screen */
