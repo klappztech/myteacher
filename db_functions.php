@@ -168,6 +168,14 @@ class DB_Functions
     return $sql;
   }
 
+  public function editVideoFull($id, $title, $batch_id, $subject_id, $chapter_id)
+  {
+    $sql = "UPDATE `mt_videos` SET `title`='$title', `batch_id`=$batch_id, ,`subject_id`='$subject_id', `chapter_id`=$chapter_id  WHERE `id`=$id ";
+    //echo $sql;
+    $result =  $this->conn->query($sql);
+    return $sql;
+  }
+
   public function setDeviceId($id, $app_device)
   {
     $sql = "UPDATE `mt_users` SET `app_device`='$app_device'WHERE `id`=$id";
@@ -456,6 +464,25 @@ class DB_Functions
   }
 
 
+  public function addVideoIdOnly(  $source )
+  {
+    $datestamp = time();
+
+    $sql = "INSERT INTO `mt_videos`(`source`) VALUES ('$source' )";
+    echo $sql;
+    $result =  $this->conn->query($sql);
+    return true;
+  }
+
+  public function deleteAllVideos()
+  {
+
+    $sql = "DELETE FROM `mt_videos` WHERE 1";
+    echo $sql;
+    $result =  $this->conn->query($sql);
+    return true;
+  }
+
   public function addVideo($title, $description, $source, $batch_id, $subject_id, $chapter_id, $release_time)
   {
     $datestamp = time();
@@ -541,8 +568,8 @@ class DB_Functions
       return false;
     }
   }
- 
- 
+
+
 
   public function duplicateVideo($id)
   {
@@ -564,7 +591,7 @@ class DB_Functions
     return  $this->conn->insert_id;
   }
 
- 
+
 
   public function deleteUser($id)
   {
@@ -616,6 +643,38 @@ class DB_Functions
   {
     $result =  $this->conn->query("SELECT * FROM `mt_chapters` WHERE subject_id ='$subject' ORDER BY `title`");
     return $result;
+  }
+
+
+  public function getAllYoutubeVideos()
+  {
+    $sql = "SELECT DISTINCT `source`  FROM `mt_videos` WHERE 1 ORDER BY `source` DESC LIMIT 0,100 ";
+    
+    //echo $sql;
+    $result =  $this->conn->query($sql);
+    return $result;
+  }
+
+  public function getAllYoutubeVideosFull()
+  {
+    $sql = "SELECT  `source`  FROM `mt_videos` WHERE 1 ORDER BY `source` ";
+    
+    //echo $sql;
+    $result =  $this->conn->query($sql);
+    return $result;
+  }
+
+
+  function getYoutubeVideoTitle($id)
+  {
+
+    $url = "http://youtube.com/get_video_info?video_id=" .$id;
+    //echo $url;
+    $content = file_get_contents($url);
+    parse_str($content, $video_info_array);
+    $title = json_decode($video_info_array['player_response'])->videoDetails->title;
+
+    return $title;
   }
 
   function sendsms($mobileno, $message)
