@@ -29,7 +29,7 @@ $search_result = $db->getAllVideosLimit20();
 ?>
 
 <head>
-    <title>Harvest - Online Test</title>
+    <title>MyTeacher - Online Test</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="robots" content="noindex, nofollow">
@@ -129,10 +129,10 @@ $search_result = $db->getAllVideosLimit20();
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-2 text-left">
-                    <a style="font-size:30px;cursor:pointer;margin:0;" class="navig-btn" href="test_list.php"><i class="fas fa-xs fa-arrow-left"></i></a>
+                    <a style="font-size:30px;cursor:pointer;margin:0;" class="navig-btn" href="welcome.php"><i class="fas fa-xs fa-arrow-left"></i></a>
                 </div>
                 <div class="col-xs-8 text-center">
-                    <h4 class="w3-bar-item">Harvest</h4>
+                    <h4 class="w3-bar-item">MyTeacher</h4>
                 </div>
 
                 <div class="col-xs-2">

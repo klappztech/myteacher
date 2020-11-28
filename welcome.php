@@ -32,21 +32,28 @@ $db = new DB_Functions();
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <script src="js/myscript.js"></script>
 
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+
+
   <script>
     $(document).ready(function() {
+
+      $('#completed_table').DataTable();
 
       /////// OMR BUTTON
 
     });
   </script>
-
-
-
 </head>
 
 
+<?php $pdf_path = "assets/q/5Q.pdf" ?>
 
 <body>
+  <div id="mySidenav" class="sidemenu">
+  </div>
+
 
   <header id="header-bar" class="w3-container w3-top w3-theme ">
     <div id="server-results" style="width:500px;word-wrap: break-word;"></div>
@@ -54,7 +61,7 @@ $db = new DB_Functions();
     <div class="container-fluid">
       <div class="row">
         <div class="col-xs-2 text-left">
-          <span style="font-size:30px;cursor:pointer;margin:0;" onclick="goBack()"> <i class="fas  fa-xs fa-arrow-left"></i> </span>
+          <span style="font-size:30px;cursor:pointer;margin:0;" onclick="openNav()"><i class="fas  fa-xs fa-bars"></i></span>
         </div>
         <div class="col-xs-8 text-center">
           <h4 class="w3-bar-item">MyTeacher</h4>
@@ -68,31 +75,40 @@ $db = new DB_Functions();
 
   </header>
 
+
+
+
+
   <div class="container-fluid text-center " style="margin-top:100px;margin-bottom:100px;">
     <div class="row content">
       <div class="col-sm-2 sidenav">
       </div>
       <div class="col-sm-8 text-left">
 
-        <h2>Batches</h2>
+        <div class="row content">
+          <div class="col-sm-4 ">
+            <div class="w3-panel w3-card">
+              <p>Completed Tests</p>
+            </div>
 
+          </div>
+          <div class="col-sm-4 ">
+            <div class="w3-panel w3-card">
+              <p>Answer Sheets</p>
 
-        <table class="table table-striped">
-          <tr>
-            <th>Select Batch</th>
-          </tr>
-          <?php
-          $search_result = $db->getAllValidChaptersByBatchIdSubjectId($_GET['batch_id'], $_GET['subject_id']);
-          while ($row =  $search_result->fetch_array()) {
+            </div>
 
-          ?>
-            <tr>
-              <td><a href="harvid_list.php?batch_id=<?php echo $_GET['batch_id']; ?>&subject_id=<?php echo $_GET['subject_id']; ?>&chapter_id=<?php echo $row['chapter_id']; ?>"><?php echo $db->getChapterNameById($row['chapter_id']); ?></a></td>
-            </tr>
+          </div>
+          <div class="col-sm-4 ">
+            <div class="w3-panel w3-card">
+              <p>Students Attended</p>
+            </div>
 
-          <?php } ?>
+          </div>
+        </div>
 
-        </table>
+        
+
 
       </div>
       <div class="col-sm-2 sidenav">

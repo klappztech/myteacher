@@ -5,7 +5,7 @@
 define("DB_HOST", "localhost");
 define("DB_USER", "root");
 define("DB_PASSWORD", "");
-define("DB_DATABASE", "i2051268_wp1");
+define("DB_DATABASE", "myteacher");
 
 
 //set timezone to india

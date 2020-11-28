@@ -4,9 +4,9 @@ session_start();
 if (isset($_SESSION['username'])) {
 
    if ($_SESSION['is_admin'] == 0) {
-      header("location:scheduled_test_list.php");
+      header("location:welcome.php");
    } else {
-      header("location:test_list.php");
+      header("location:welcome.php");
    }
 }
 
@@ -25,13 +25,13 @@ if (isset($_POST['username'])) {
    if ($login_result == true) {
 
 
-      $db->add2Log( $_SESSION['user_id'], $_SESSION['username'], "logged in", "");
+      //$db->add2Log( $_SESSION['user_id'], $_SESSION['username'], "logged in", "");
 
 
       if ($_SESSION['is_admin'] == 0) {
-         header("location:scheduled_test_list.php");
+         header("location:welcome.php");
       } else {
-         header("location:test_list.php");
+         header("location:welcome.php");
       }
    }
 }
@@ -49,7 +49,7 @@ $db = new DB_Functions();
 ?>
 
 <head>
-   <title>Harvest - Online Test</title>
+   <title>MyTeacher - Online Test</title>
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
    <meta name="robots" content="noindex, nofollow">
@@ -118,7 +118,7 @@ $db = new DB_Functions();
       <div class="container-fluid">
          <div class="row">
             <div class="col-xs-6">
-               <h4 class="w3-bar-item">Harvest</h4>
+               <h4 class="w3-bar-item">MyTeacher</h4>
             </div>
             <div class="col-xs-3">
                <h4> </h4>

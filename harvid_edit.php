@@ -41,7 +41,7 @@ if (isset($_GET['from_add_vid']) || isset($_POST['from_add_vid']) ) {
 ?>
 
 <head>
-   <title>Harvest - Online Test</title>
+   <title>MyTeacher - Online Test</title>
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
    <meta name="robots" content="noindex, nofollow">
@@ -110,7 +110,7 @@ if (isset($_GET['from_add_vid']) || isset($_POST['from_add_vid']) ) {
                <a style="font-size:30px;cursor:pointer;margin:0;" class="navig-btn" href="<?php echo $return_link; ?>"><i class="fas fa-xs fa-arrow-left"></i></a>
             </div>
             <div class="col-xs-8 text-center">
-               <h4 class="w3-bar-item">Harvest</h4>
+               <h4 class="w3-bar-item">MyTeacher</h4>
             </div>
 
             <div class="col-  xs-2">

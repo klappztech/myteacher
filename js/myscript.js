@@ -76,7 +76,7 @@ window.onscroll = function () {
   if (Math.abs(prevScrollpos - currentScrollPos) > 10) {
     if (prevScrollpos >= currentScrollPos) {
       document.getElementById("header-bar").style.top = "0";
-      document.getElementById("footer-bar").style.backgroundColor = "#009688";
+      document.getElementById("footer-bar").style.backgroundColor = "#f65888";
     } else {
       document.getElementById("header-bar").style.top = "-81px";
       document.getElementById("footer-bar").style.backgroundColor = "#00000022";

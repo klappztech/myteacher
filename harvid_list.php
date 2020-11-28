@@ -16,7 +16,7 @@ $search_result = $db->getAllVideosByBatchSubjectChapter($_GET['batch_id'], $_GET
 ?>
 
 <head>
-    <title>Harvest - Online Test</title>
+    <title>MyTeacher - Online Test</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="robots" content="noindex, nofollow">
@@ -84,7 +84,7 @@ $search_result = $db->getAllVideosByBatchSubjectChapter($_GET['batch_id'], $_GET
                     <span style="font-size:30px;cursor:pointer;margin:0;" onclick="goBack()"> <i class="fas  fa-xs fa-arrow-left"></i> </span>
                 </div>
                 <div class="col-xs-8 text-center">
-                    <h4 class="w3-bar-item">Harvest</h4>
+                    <h4 class="w3-bar-item">MyTeacher</h4>
                 </div>
 
                 <div class="col-xs-2">

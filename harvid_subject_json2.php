@@ -17,9 +17,7 @@ if ($is_user_valid == 1) //user subscribed
         $row_temp['title'] = $db->getSubjectNameById($row['subject_id']);
         $row_temp['subject_id'] = $row['subject_id'];
 
-        if( $db->IsStudentEnrolledForSubjectId($student_id, $row['subject_id']) ) {
         array_push($all_video, $row_temp);
-        }
 
     }
 
