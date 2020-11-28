@@ -168,9 +168,9 @@ class DB_Functions
     return $sql;
   }
 
-  public function editVideoFull($id, $title, $batch_id, $subject_id, $chapter_id)
+  public function editVideoFull($source, $title, $batch_id, $subject_id, $chapter_id)
   {
-    $sql = "UPDATE `mt_videos` SET `title`='$title', `batch_id`=$batch_id, ,`subject_id`='$subject_id', `chapter_id`=$chapter_id  WHERE `id`=$id ";
+    $sql = "UPDATE `mt_videos` SET `title`='$title', `batch_id`=$batch_id,`subject_id`='$subject_id', `chapter_id`=$chapter_id  WHERE `source`='$source' ";
     //echo $sql;
     $result =  $this->conn->query($sql);
     return $sql;
@@ -464,12 +464,12 @@ class DB_Functions
   }
 
 
-  public function addVideoIdOnly(  $source )
+  public function addVideoIdOnly($source)
   {
     $datestamp = time();
 
     $sql = "INSERT INTO `mt_videos`(`source`) VALUES ('$source' )";
-    echo $sql;
+    //echo $sql;
     $result =  $this->conn->query($sql);
     return true;
   }
@@ -478,7 +478,7 @@ class DB_Functions
   {
 
     $sql = "DELETE FROM `mt_videos` WHERE 1";
-    echo $sql;
+    //echo $sql;
     $result =  $this->conn->query($sql);
     return true;
   }
@@ -648,8 +648,8 @@ class DB_Functions
 
   public function getAllYoutubeVideos()
   {
-    $sql = "SELECT DISTINCT `source`  FROM `mt_videos` WHERE 1 ORDER BY `source` DESC LIMIT 0,100 ";
-    
+    $sql = "SELECT  *  FROM `mt_videos` WHERE 1 ORDER BY `source` DESC LIMIT 0,5 ";
+
     //echo $sql;
     $result =  $this->conn->query($sql);
     return $result;
@@ -657,18 +657,92 @@ class DB_Functions
 
   public function getAllYoutubeVideosFull()
   {
-    $sql = "SELECT  `source`  FROM `mt_videos` WHERE 1 ORDER BY `source` ";
-    
+    $sql = "SELECT *  FROM `mt_videos` WHERE 1 ORDER BY `source` ";
+
     //echo $sql;
     $result =  $this->conn->query($sql);
     return $result;
+  }
+
+  public function extractDetailsFromVideoId($youtube_id, &$std, &$subject, &$class_num, &$title_compact)
+  {
+    //get title from youtube.con
+    $url = "http://youtube.com/get_video_info?video_id=" . $youtube_id;
+    $content = file_get_contents($url);
+    parse_str($content, $video_info_array);
+    $title = json_decode($video_info_array['player_response'])->videoDetails->title;
+
+    //convert multiple spaces to single space
+    $title      = preg_replace('!\s+!', ' ', $title);
+    $exp_title  = explode(" ", $title);
+
+    $std = (int) substr(
+      $title,
+      stripos($title, "STD") + 4,
+      2
+    );
+
+    if ($std == 0) { //could be plus one/two
+
+      $std_str = substr(
+        $title,
+        stripos($title, "Plus"),
+        8
+      );
+
+      if (stripos($std_str, "One")) {
+        $std = 11;
+      } else if (stripos($std_str, "Two")) {
+        $std = 12;
+      }
+
+      $subject_start  = stripos($title, "Plus") + 9;
+      $subject_end    =  stripos($title, "Class");
+
+      $subject = substr(
+        $title,
+        $subject_start,
+        $subject_end - $subject_start
+      );
+    } else { //standard 1 to 10
+
+      $subject_start  = stripos($title, $exp_title[4]);
+      $subject_end    =  stripos($title, "Class");
+
+      $subject = substr(
+        $title,
+        $subject_start,
+        $subject_end - $subject_start
+      );
+    }
+    $subject = strtoupper($subject);
+
+
+    $class_num_start  = stripos($title, "Class") + 5;
+    $class_num_end    =  stripos($title, "(First");
+
+    $class_num = (int) substr(
+      $title,
+      $class_num_start,
+      $class_num_end - $class_num_start
+    );
+
+
+    $title_compact_start  = stripos($title, "VICTERS") + 7;
+    $title_compact_end    =  stripos($title, "(First");
+
+    $title_compact = substr(
+      $title,
+      $title_compact_start,
+      $title_compact_end - $title_compact_start
+    );
   }
 
 
   function getYoutubeVideoTitle($id)
   {
 
-    $url = "http://youtube.com/get_video_info?video_id=" .$id;
+    $url = "http://youtube.com/get_video_info?video_id=" . $id;
     //echo $url;
     $content = file_get_contents($url);
     parse_str($content, $video_info_array);

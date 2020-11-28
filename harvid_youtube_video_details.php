@@ -198,6 +198,24 @@ if ($IS_ADMIN && isset($_POST['source'])) {    // admin search
 
                 <hr />
 
+                <?php
+
+                $std = 0;
+                $subject = "";
+                $class_num = 0;
+                $title_compact = "";
+
+                $youtube_result = $db->getAllYoutubeVideosFull();
+                while ($row =  $youtube_result->fetch_array()) {
+                    // extract Details From VideoId
+                    $db->extractDetailsFromVideoId($row['source'], $std, $subject, $class_num, $title_compact);
+
+                    //update video in DB
+                    $db->editVideoFull($row['source'], $title_compact, $std, $subject, $class_num);
+                } ?>
+
+
+
                 <table id="table_id" class="display">
                     <thead>
                         <tr>
@@ -206,7 +224,6 @@ if ($IS_ADMIN && isset($_POST['source'])) {    // admin search
                             <th>Batch</th>
                             <th>Subject</th>
                             <th>Class Num</th>
-                            <th>Time</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -214,75 +231,14 @@ if ($IS_ADMIN && isset($_POST['source'])) {    // admin search
                     <tbody>
 
                         <?php
+
+                        ////////// DRAW table /////////
                         $num = 0;
-
-                        $youtube_result = $db->getAllYoutubeVideos();
-
-
+                        $youtube_result = $db->getAllYoutubeVideosFull();
                         while ($row =  $youtube_result->fetch_array()) {
 
-                            $num++; {    // admin search
+                            $num++;
 
-                                $search_result = $db->getYoutubeVideoTitle($row['source']); //$title;// $ytarr['title'];
-
-                                $title      = preg_replace('!\s+!', ' ', $search_result);
-                                $exp_title  = explode(" ",$title);
-
-                                $std = (int) substr(
-                                    $title,
-                                    stripos($title, "STD") + 4,
-                                    2
-                                );
-
-                                if ($std == 0) { //could be plus one/two
-
-                                    $std_str = substr(
-                                        $title,
-                                        stripos($title, "Plus"),
-                                        8
-                                    );
-
-                                    if (stripos($std_str, "One")) {
-                                        $std = 11;
-                                    } else if (stripos($std_str, "Two")) {
-                                        $std = 12;
-                                    }
-
-                                    $subject_start  = stripos($title, "Plus") + 9;
-                                    $subject_end    =  stripos($title, "Class");
-
-                                    $subject = substr(
-                                        $title,
-                                        $subject_start,
-                                        $subject_end - $subject_start
-                                    );
-
-
-                                } else { //standard 1 to 10
-
-                                    $subject_start  = stripos($title, $exp_title[4]);
-                                    $subject_end    =  stripos($title, "Class");
-
-                                    $subject = substr(
-                                        $title,
-                                        $subject_start,
-                                        $subject_end - $subject_start
-                                    );
-                                }
-                                $subject = strtoupper($subject);
-
-
-                                $class_num_start  = stripos($title, "Class") + 5;
-                                $class_num_end    =  stripos($title, "(First");
-
-                                $class_num = (int) substr(
-                                    $title,
-                                    $class_num_start,
-                                    $class_num_end - $class_num_start
-                                );
-
-
-                            }
 
 
                         ?>
@@ -293,12 +249,11 @@ if ($IS_ADMIN && isset($_POST['source'])) {    // admin search
                                     <td><?php echo $num; ?></td>
                                     <td>
                                         <!-- <img src="https://img.youtube.com/vi/<?php echo $row['source'] ?>/default.jpg"> -->
-                                        <?php echo '<a href="https://www.youtube.com/watch?v=' . $row['source'] . '" >' .  $title . '</a>'; ?>
+                                        <?php echo '<a href="https://www.youtube.com/watch?v=' . $row['source'] . '" >' .  $row['title'] . '</a>'; ?>
                                     </td>
-                                    <td><?php echo  $std; ?></td>
-                                    <td><?php echo  $subject; ?></td>
-                                    <td><?php echo  $class_num; ?></td>
-                                    <td><?php echo  date(" d.m.Y, h:i A", 0); ?></td>
+                                    <td><?php echo  $row['batch_id']; ?></td>
+                                    <td><?php echo  $row['subject_id']; ?></td>
+                                    <td><?php echo  $row['chapter_id']; ?></td>
                                     <td>
 
                                         <a href="#" class="btn btn-primary btn-xs">edit</a>
